@@ -46,7 +46,7 @@ catch (err) {
     console.log(err)
     res.json({error: "invalid url"})
     return
-  
+
 };
 
 //checking if the url, though having a proper structure ("https..."), is valid or not
@@ -55,23 +55,31 @@ dns.lookup(hostname,(error,address)=>{
     res.json({error: 'invalid url'})
     return
   } 
-  else if (error) {
-    res.json({error: 'unknown error'})
-    return
-  } 
-  else { console.log(address)};
+
+  else {
+    tinyurl.shorten(long_url)
+    .then((url)=>{
+      short_url = url
+      res.json({
+        original_url: long_url,
+        short_url: short_url
+      })
+      return
+    })
+  };
 })
 
 
-  
-tinyurl.shorten(long_url)
-  .then((url)=>{
-    short_url = url
-    res.json({
-      original_url: long_url,
-      short_url: short_url
-    })
-  })
+
+// tinyurl.shorten(long_url)
+//   .then((url)=>{
+//     short_url = url
+//     res.json({
+//       original_url: long_url,
+//       short_url: short_url
+//     })
+//     return
+//   })
 
 
 });
@@ -98,9 +106,10 @@ console.log("Hello")
 //     console.log(WOORKKKSS)
 //   }
 // })
-// test_domain_name = "dontweallexistahalol.com"
-// dns.lookup(test_domain_name,(error,address)=>{
-//    if (error) {console.log(error)} else {console.log(address)}
-//  });
+test_domain_name = "aaaaa.com"
+dns.lookup(test_domain_name,(error,address)=>{
+   if (error) {console.log(error)} else {console.log(address)}
+ });
 
 // Error Code: ENOTFOUND
+
